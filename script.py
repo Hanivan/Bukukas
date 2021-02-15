@@ -1,4 +1,4 @@
-from function import encript_str, clear_screen, login, show_menu
+from function import encript_str, clear_screen, login, show_menu, jalankan
 from menu_item import MenuItem
 
 print('''
@@ -10,4 +10,4 @@ print('''
 =================================================
 ''')
 # # #
-login()
+jalankan()

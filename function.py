@@ -12,6 +12,23 @@ def encript_str(string):
         hashlib.sha256(string.encode()).hexdigest()
     return sha_signature
 
+# Buat file jika belum ada
+def jalankan():
+    isFile = os.path.isfile(file_saldo)
+    if isFile:
+        login()
+    else:
+        with open('saldo.csv', mode='w') as file:
+            # Menentukan label
+            fieldnames = ['Nominal']
+            nominal = 0
+            # Membuat objek writer
+            writer = csv.DictWriter(file, delimiter=',', fieldnames=fieldnames)
+            # Menulis baris ke file csv
+            writer.writerow({'Nominal': nominal})
+            os.system('mkdir .bukukas && move "saldo.csv" ".bukukas"' if os.name == 'nt' else 'mkdir .bukukas && mv saldo.csv .bukukas')
+            login()
+
 def login():
     # Jika Password user benar, cetak output sesuai kenyataan
     user_password_input = getpass.getpass('Ketikan password Anda: ')

@@ -5,6 +5,7 @@ import hashlib, os, getpass, csv
 # Inisiasi
 file_saldo = '.bukukas/saldo.csv'
 file_passwd = '.bukukas/passwd.csv'
+isFile = os.path.isfile(file_saldo)
 
 # Enkripsi dan hide inputan password dari user
 def encript_str(string):
@@ -16,18 +17,22 @@ def encript_str(string):
 def jalankan():
     isFile = os.path.isfile(file_saldo)
     if isFile:
-        login()
+        show_menu()
     else:
         with open('saldo.csv', mode='w') as file:
             # Menentukan label
             fieldnames = ['Nominal']
-            nominal = 0
             # Membuat objek writer
             writer = csv.DictWriter(file, delimiter=',', fieldnames=fieldnames)
-            # Menulis baris ke file csv
-            writer.writerow({'Nominal': nominal})
-            os.system('mkdir .bukukas && move "saldo.csv" ".bukukas"' if os.name == 'nt' else 'mkdir .bukukas && mv saldo.csv .bukukas')
-            login()
+            # Meminta saldo pertama pada user
+            try:
+                nominal = int(input('Masukkan catatan kas pertama Anda: '))
+            except ValueError:
+                print('Masukkan angka yang benar!')
+            else:
+                # Menulis baris ke file csv
+                writer.writerow({'Nominal': nominal})
+                os.system('mkdir .bukukas && move "saldo.csv" ".bukukas"' if os.name == 'nt' else 'mkdir .bukukas && mv saldo.csv .bukukas')
 
 def login():
     # Jika Password user benar, cetak output sesuai kenyataan
@@ -38,6 +43,7 @@ def login():
     if encripted_password == password_default[0]:
         print('Password Anda benar')
         clear_screen()
+        jalankan()
         show_menu()
     else:
         print('Password Anda salah!')
@@ -79,6 +85,8 @@ def show_menu():
         exit()
     else:
         print('Masukkan angka yang benar!')
+        os.system('timeout 0.5' if os.name == 'nt' else 'sleep 0.5')
+        show_menu()
 
 def cek_saldo():
     clear_screen()
@@ -117,7 +125,8 @@ def tambah_saldo():
     menu()
 
 def ganti_password():
-    pass
+    clear_screen()
+    print('Tunggu update-an berikutnya yaa :D')
     menu()
 
 # Looping

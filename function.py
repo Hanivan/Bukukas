@@ -26,15 +26,18 @@ def jalankan():
             writer = csv.DictWriter(file, delimiter=',', fieldnames=fieldnames)
             # Meminta saldo pertama pada user
             try:
-                nominal = int(input('Masukkan catatan kas pertama Anda: '))
+                nominal = int(input('Masukkan saldo pertama Anda dalam angka: '))
             except ValueError:
                 print('Masukkan angka yang benar!')
             else:
                 # Menulis baris ke file csv
                 writer.writerow({'Nominal': nominal})
-                os.system('mkdir .bukukas && move "saldo.csv" ".bukukas"' if os.name == 'nt' else 'mkdir .bukukas && mv saldo.csv .bukukas')
+                os.system('mkdir .bukukas && mv saldo.csv .bukukas')
 
 def login():
+    if os.name == 'nt':
+        print('Maaf, Aplikasi ini hanya mendukung sistem operasi linux')
+        exit()
     # Jika Password user benar, cetak output sesuai kenyataan
     user_password_input = getpass.getpass('Ketikan password Anda: ')
     encripted_password = encript_str(user_password_input)
@@ -51,7 +54,7 @@ def login():
 
 # Bersihkan Layar
 def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('clear')
 
 def menu():
     print('\n')
@@ -85,7 +88,7 @@ def show_menu():
         exit()
     else:
         print('Masukkan angka yang benar!')
-        os.system('timeout 0.5' if os.name == 'nt' else 'sleep 0.5')
+        os.system('sleep 0.5')
         show_menu()
 
 def cek_saldo():

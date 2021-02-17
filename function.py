@@ -66,9 +66,8 @@ def show_menu():
     # Instansiasi
     menu1 = MenuItem('Lihat saldo')
     menu2 = MenuItem('Tambah Saldo')
-    menu3 = MenuItem('Ganti password')
-    menu4 = MenuItem('Keluar')
-    menu_items = [menu1, menu2, menu3, menu4]
+    menu3 = MenuItem('Keluar')
+    menu_items = [menu1, menu2, menu3]
     print('--------------------')
     # definisikan index dari 1
     index = 1
@@ -83,8 +82,6 @@ def show_menu():
     elif selected_menu == '2':
         tambah_saldo()
     elif selected_menu == '3':
-        ganti_password()
-    elif selected_menu == '4':
         exit()
     else:
         print('Masukkan angka yang benar!')
@@ -125,11 +122,6 @@ def tambah_saldo():
                 nominal += int(saldo_old)
                 writer.writerow({'Nominal': nominal})
                 print('Saldo berhasil dicatat kedalam buku')
-    menu()
-
-def ganti_password():
-    clear_screen()
-    print('Tunggu update-an berikutnya yaa :D')
     menu()
 
 # Looping
